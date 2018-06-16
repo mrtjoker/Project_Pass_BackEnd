@@ -10,6 +10,6 @@ app.use(require("./project/project.route"));
 app.use(require("./pm/pm.route"));
 app.use(require("./employee/employee.route"));
 app.use(require("./store/store.route"));
-// app.use(require("./sale/saleProject.route"));
+
 
 app.listen( port );
