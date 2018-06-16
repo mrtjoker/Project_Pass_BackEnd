@@ -10,6 +10,10 @@ app.use(require("./project/project.route"));
 app.use(require("./pm/pm.route"));
 app.use(require("./employee/employee.route"));
 app.use(require("./store/store.route"));
+<<<<<<< HEAD
 // app.use(require("./sale/saleProject.route"));
+=======
+
+>>>>>>> e4402e5380d78a709172d3bbe74e60417ddd1211
 
 app.listen( port );
