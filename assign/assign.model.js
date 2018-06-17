@@ -2,13 +2,16 @@ mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var StoreSchema = new Schema({ // declare structor model in database
+    assignProjectCode: { "type": mongoose.Schema.Types.ObjectId, "ref": "project" },
+    assignPMName: String,
     assignEmpName: String, 
-    assignFile: [], //obj
+    assignFile: [],
     assignScopeStart: Date,
     assignScopeEnd: Date,
-    assignMat: [], //obj
+    assignMat: [],
+    assignProgress: Number,
     assignNote: String, 
-    assignType: String,
+    assignEmpType: String,
  });
 
 var Assign = mongoose.model("assign", StoreSchema); // create model in employee collection
