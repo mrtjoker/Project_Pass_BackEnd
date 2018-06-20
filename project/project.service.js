@@ -5,6 +5,11 @@ service = {}
 service.all = () => {
     return   Project.find(); // find and return value to controller
 } 
+
+service.groupService = () => {
+    return   Project.find(); // find and return value to controller
+} 
+
 service.insert = (value) => {
     data = new Project({
         projectCode: value.projectCode,
