@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require('./project.controller')
 
 router.get('/project',controller.index); // call function index in controller
+router.get('/projectGroupProduct',controller.group); // call function index in controller
 router.post('/project',controller.add); // call function add in controller  
 router.put( "/project/:id", controller.update );
 router.delete( "/project/:id", controller.destroy );
