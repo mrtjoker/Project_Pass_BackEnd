@@ -1,43 +1,12 @@
 const service = require("./project.service")// declare path service for use
+var groupArray = require('group-array');
 controller = {}
 
 controller.index = (req, res) => { // use request value and return results to front-end
     service.all().then((listProject) => { // call back function in service it is getting value
-        let count = 0;
-        let temp = [];
-        let check = 0;
-        let list = [];
-        list.forEach(element => {
-            element.projectFile.forEach(value => {
-                if (count === 0) {
-                    temp.push(value.codeProduct);
-                    count++;
-                } else {
-                    temp.forEach(val => {
-                        if (value.codeProduct === val) {
-                            check++;
-                        }
-                    });
-                    if(check === 0){
-                        temp.push(value.codeProduct);
-                    }
-                    check = 0;
-                }
-            });
-            list.push({
-                // StatusProject:,
-                // customer:,
-                // pm:,
-                // projectCode:,
-                // projectEnd:,
-                // projectFile:,
-                // projectProgress:,
-                // projectStart:,
-                // projectType:,
-                // _id:
-            })
+        listProject.forEach(element => {
+            console.log(groupArray(element.projectFile, 'codeProduct'))
         });
-        console.log(temp)
         res.send(listProject) // response value to front-end
     })
 }
