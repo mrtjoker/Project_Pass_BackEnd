@@ -3,6 +3,7 @@ controller = {}
 
 controller.index = (req, res) => { // use request value and return results to front-end
     service.all().then(( list ) => { // call back function in service it is getting value
+        console.log(list)
         res.send(list) // response value to front-end
     })
 }

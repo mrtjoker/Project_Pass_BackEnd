@@ -10,6 +10,10 @@ service.groupService = () => {
     return   Project.find(); // find and return value to controller
 } 
 
+service.groupProject = (id) => {
+    return   Project.findById(id); 
+} 
+
 service.insert = (value) => {
     data = new Project({
         projectCode: value.projectCode,
