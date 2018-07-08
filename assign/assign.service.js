@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 service = {}
 
 service.all = () => {
-    return Assign.find(); // find and return value to controller
+    return Assign.find().populate("project").exec(); // find and return value to controller
 }
 service.insert = (value) => {
     data = new Assign({
