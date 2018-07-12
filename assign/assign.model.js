@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var StoreSchema = new Schema({ // declare structor model in database
     assignProjectCode: { "type": mongoose.Schema.Types.ObjectId, "ref": "project" },
+    assignProject: String,
     assignPMName: String,
     assignEmpName: String, 
     assignFile: [],

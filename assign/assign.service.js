@@ -8,6 +8,7 @@ service.all = () => {
 service.insert = (value) => {
     data = new Assign({
         assignProjectCode: mongoose.Types.ObjectId(  value.assignProjectCode ),
+        assignProject: value.assignProject,
         assignPMName: value.assignPMName,
         assignEmpName: value.assignEmpName,
         assignFile: value.assignFile,
