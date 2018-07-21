@@ -5,10 +5,15 @@ service = {}
 service.all = () => {
     return Assign.find().populate("project").exec(); // find and return value to controller
 }
+
+service.findId = (id) => {
+    return Assign.find({ assignProjectCode:id });
+}
+
 service.insert = (value) => {
     data = new Assign({
-        assignProjectCode: mongoose.Types.ObjectId(  value.assignProjectCode ),
-        assignProject: value.assignProject,
+        assignProjectCode: value.assignProjectCode,
+        assignProject_id: value.assignProject_id,
         assignPMName: value.assignPMName,
         assignEmpName: value.assignEmpName,
         assignFile: value.assignFile,

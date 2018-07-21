@@ -31,7 +31,6 @@ controller.add = (req, res) => {// use request value and return results to front
 }
 
 controller.update = (req, res) => {
-    console.log(req.body)
     // service.update( req.body, req.params.id ).then( ( data ) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
     //     res.json( data ); // response data with JSON
     // } );
