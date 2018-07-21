@@ -11,5 +11,6 @@ app.use(require("./pm/pm.route"));
 app.use(require("./employee/employee.route"));
 app.use(require("./store/store.route"));
 app.use(require("./assign/assign.route"));
+app.use(require("./user/user.route"));
 
 app.listen( port );
