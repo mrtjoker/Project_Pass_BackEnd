@@ -5,6 +5,9 @@ service = {}
 service.all = () => {
     return Store.find(); // find and return value to controller
 }
+service.findId = (id) => {
+    return Store.find({ materialId:id });
+}
 service.insert = (value) => {
     data = new Store({
         materialId: value.materialId,

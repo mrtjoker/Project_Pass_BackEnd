@@ -16,10 +16,10 @@ controller.projectProgress = (req, res) => { // use request value and return res
                 fileProgress += val.fileProgress
             })
             sumlen += element.assignFile.length
-            manegerProgress += fileProgress/sumlen;
+            manegerProgress += fileProgress / sumlen;
         });
         let projectProgress = [0];
-        projectProgress[0] = {value: manegerProgress /list.length};
+        projectProgress[0] = { value: manegerProgress / list.length };
         res.send(projectProgress)
 
 
@@ -96,11 +96,43 @@ controller.update = (req, res) => {
 };
 
 controller.updateMat = (req, res) => {
-    console.log(req.body)
-    service.update(req.body, req.body._id).then((data) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
-        console.log(data)
-        res.json(data); // response data with JSON
-    });
+    (async () => {
+        let list = {};
+        let assignMat = [];
+        let assign = {};
+        list = await service.findAssign(req.params.id);
+        for (let i = 0; i < list[0].assignMat.length; i++) {
+            if (i === req.body.assignMat.count) {
+                assignMat.push({
+                    matId: req.body.assignMat.matId,
+                    matItem: req.body.assignMat.matItem,
+                    matType: req.body.assignMat.matType,
+                    matNum: req.body.assignMat.matNum,
+                    matRecive: req.body.assignMat.matRecive,
+                    matDate: req.body.assignMat.matDate,
+                    matForm: req.body.assignMat.matForm
+                })
+            } else {
+                assignMat.push(list[0].assignMat[i]);
+            }
+        }
+        assign = {
+            _id: list[0]._id,
+            assignFile: list[0].assignFile,
+            assignMat: assignMat,
+            assignProjectCode: list[0].assignProjectCode,
+            assignProject_id: list[0].assignProject_id,
+            assignPMName: list[0].assignPMName,
+            assignEmpName: list[0].assignEmpName,
+            assignScopeStart: list[0].assignScopeStart,
+            assignScopeEnd: list[0].assignScopeEnd,
+            assignProgress: list[0].assignProgress,
+            assignNote: list[0].assignNote,
+            assignEmpType: list[0].assignEmpType,
+        }
+        listAssign = await service.update(assign, req.params.id)           
+        res.json(listAssign);
+    })();
 };
 
 controller.destroy = (req, res) => {
