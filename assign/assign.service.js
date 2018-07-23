@@ -27,7 +27,9 @@ service.insert = (value) => {
     return data.save(); // insert data in database 
 }
 service.update = (data, id) => {
-    return Assign.findByIdAndUpdate(id, data, { "new": true }); // update data at degree collection
+    console.log(data)
+    console.log(id)
+    return Assign.findByIdAndUpdate(id, data); // update data at degree collection
 };
 
 service.delete = (id) => {

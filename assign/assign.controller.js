@@ -86,12 +86,19 @@ controller.add = (req, res) => {// use request value and return results to front
     res.send() // response to front-end
 }
 controller.update = (req, res) => {
-    // console.log(req.body.assignFile.length)
     for (let i = 0; i < req.body.assignFile.length; i++) {
         req.body.assignFile[i].fileProgress = (req.body.assignFile[i].fileRecive / req.body.assignFile[i].fileNum) * 100
-        // console.log(req.body.assignFile[i].fileProgress)
     }
+
     service.update(req.body, req.params.id).then((data) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
+        res.json(data); // response data with JSON
+    });
+};
+
+controller.updateMat = (req, res) => {
+    console.log(req.body)
+    service.update(req.body, req.body._id).then((data) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
+        console.log(data)
         res.json(data); // response data with JSON
     });
 };
