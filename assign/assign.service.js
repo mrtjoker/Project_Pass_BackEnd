@@ -9,7 +9,9 @@ service.all = () => {
 service.findId = (id) => {
     return Assign.find({ assignProjectCode:id });
 }
-
+service.findAssign = (id) => {
+    return Assign.find({ _id:id });
+}
 service.insert = (value) => {
     data = new Assign({
         assignProjectCode: value.assignProjectCode,
@@ -27,9 +29,7 @@ service.insert = (value) => {
     return data.save(); // insert data in database 
 }
 service.update = (data, id) => {
-    console.log(data)
-    console.log(id)
-    return Assign.findByIdAndUpdate(id, data); // update data at degree collection
+    return Assign.findByIdAndUpdate(id, data, { "new": true }); // update data at degree collection
 };
 
 service.delete = (id) => {
