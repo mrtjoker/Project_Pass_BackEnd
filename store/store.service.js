@@ -14,7 +14,8 @@ service.insert = (value) => {
         materialName: value.materialName,
         materialNum: value.materialNum,
         materialUnit: value.materialUnit,
-        materialPrice: value.materialPrice
+        materialPrice: value.materialPrice,
+        materialForm: value.materialForm
     })
     return data.save(); // insert data in database 
 }
