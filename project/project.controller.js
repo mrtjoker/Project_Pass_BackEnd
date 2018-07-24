@@ -19,6 +19,12 @@ controller.group = (req, res) => { // use request value and return results to fr
     })
 }
 
+controller.projectFromPM = (req, res) => { // use request value and return results to front-end
+    service.projectFromPM(req.params.id).then((list) => { // call back function in service it is getting value
+        res.send(list) // response value to front-end
+    })
+}
+
 controller.groupId = (req, res) => { // use request value and return results to front-end
     service.groupProject(req.params.id).then((list) => { // call back function in service it is getting value
         res.send(list) // response value to front-end

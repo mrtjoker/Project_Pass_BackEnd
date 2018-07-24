@@ -14,6 +14,10 @@ service.groupProject = (id) => {
     return   Project.findById(id); 
 } 
 
+// service.projectFromPM = (id) => {
+//     return   Project.find({}); 
+// }
+
 service.insert = (value) => {
     data = new Project({
         projectCode: value.projectCode,
