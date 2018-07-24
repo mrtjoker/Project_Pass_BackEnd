@@ -6,7 +6,8 @@ var StoreSchema = new Schema({ // declare structor model in database
     materialName: String,
     materialNum: Number,
     materialUnit: String,
-    materialPrice: String
+    materialPrice: String,
+    materialForm: String
  });
 
 var Store = mongoose.model("store", StoreSchema); // create model in employee collection
