@@ -9,6 +9,8 @@ router.get( '/assignnId/:id', controller.projectProgress );
 router.post('/assign',controller.add); // call function add in controller  
 router.put( "/assign/:id", controller.update );
 router.put( "/assignn/:id", controller.updateMat );
+router.put( "/assignReturn/:id", controller.updateReturnMat );
+router.put( "/assignForm/:id", controller.updateMatassignForm );
 // router.put( "/assignForm/:id", controller.updateMatassignForm );
 router.delete( "/assign/:id", controller.destroy );
 
