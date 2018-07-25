@@ -1,5 +1,5 @@
 const service = require("./assign.service")// declare path service for use
-const service2 = require("../store/store.service")
+const serviceEmployee = require("../employee/employee.service")// declare path service for use
 controller = {}
 
 controller.index = (req, res) => { // use request value and return results to front-end
@@ -7,6 +7,16 @@ controller.index = (req, res) => { // use request value and return results to fr
         res.send(list) // response value to front-end
     })
 }
+controller.findIdUser = (req, res) => { // use request value and return results to front-end
+    (async () => {
+        let list = [];
+        let emp = [];
+        emp = await serviceEmployee.findId(req.params.id);
+        list = await service.findIdUser(emp[0].employeeName);
+        res.send(list) // response value to front-end
+    })();
+}
+
 controller.projectProgress = (req, res) => { // use request value and return results to front-end
     service.findId(req.params.id).then((list) => { // call back function in service it is getting value
         let fileProgress = 0;
@@ -83,6 +93,7 @@ controller.findAssignId = (req, res) => { // use request value and return result
 }
 
 controller.add = (req, res) => {// use request value and return results to front-end
+    console.log(req.body)
     service.insert(req.body);// call back function in service it is adding value
     res.send() // response to front-end
 }
@@ -98,24 +109,6 @@ controller.update = (req, res) => {
 
 controller.updateMat = (req, res) => {
     (async () => {
-        let matI = {};
-        let assignMat = [];
-        let mat = {};
-        matI = await service2.findId(req.body.assignMat.matId);
-        // console.log(matI[0]._id)
-        matL = {
-            _id: matI[0]._id,
-            materialId: matI[0].materialId,
-            materialName: matI[0].materialName,
-            materialNum: matI[0].materialNum-req.body.assignMat.matFromStore,
-            materialUnit: matI[0].materialUnit,
-            materialPrice:  parseInt(matI[0].materialPrice),
-            materialForm: 'old'
-        }
-        listMat = await service2.update(matL, matI[0]._id)
-    })();
-
-    (async () => {
         let list = {};
         let assignMat = [];
         let assign = {};
@@ -123,54 +116,13 @@ controller.updateMat = (req, res) => {
         for (let i = 0; i < list[0].assignMat.length; i++) {
             if (i === req.body.assignMat.count) {
                 assignMat.push({
-                    _id: req.body.assignMat._id,
                     matId: req.body.assignMat.matId,
                     matItem: req.body.assignMat.matItem,
                     matType: req.body.assignMat.matType,
-                    matNum: parseInt(req.body.assignMat.matNum),
-                    matRecive: req.body.assignMat.matRecive+req.body.assignMat.matFromStore,
+                    matNum: req.body.assignMat.matNum,
+                    matRecive: req.body.assignMat.matRecive,
                     matDate: req.body.assignMat.matDate,
-                    matForm: 'old'
-                })
-            } else {
-                assignMat.push(list[0].assignMat[i]);
-            }
-        }
-        assign = {
-            _id: list[0]._id,
-            assignFile: list[0].assignFile,
-            assignMat: assignMat,
-            assignProjectCode: list[0].assignProjectCode,
-            assignProject_id: list[0].assignProject_id,
-            assignPMName: list[0].assignPMName,
-            assignEmpName: list[0].assignEmpName,
-            assignScopeStart: list[0].assignScopeStart,
-            assignScopeEnd: list[0].assignScopeEnd,
-            assignProgress: list[0].assignProgress,
-            assignNote: list[0].assignNote,
-            assignEmpType: list[0].assignEmpType,
-        }
-        listAssign = await service.update(assign, req.params.id)           
-        res.json(listAssign);
-    })();
-};
-controller.updateMatassignForm = (req, res) => {
-    (async () => {
-        let list = {};
-        let assignMat = [];
-        let assign = {};
-        list = await service.findAssign(req.params.id);
-        for (let i = 0; i < list[0].assignMat.length; i++) {
-            if (i === req.body[0].valueAssign.count) {
-                assignMat.push({
-                    _id: req.body[0].valueAssign._id,
-                    matId: req.body[0].value.materialId,
-                    matItem: req.body[0].value.materialName,
-                    matType: req.body[0].value.materialUnit,
-                    matNum: parseInt(req.body[0].valueAssign.matNum),
-                    matRecive: 0,
-                    matDate: req.body[0].valueAssign.matDate,
-                    matForm: 'old'
+                    matForm: req.body.assignMat.matForm
                 })
             } else {
                 assignMat.push(list[0].assignMat[i]);

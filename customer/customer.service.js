@@ -13,6 +13,9 @@ service.insert = (value) => {
     })
     return data.save(); // insert data in database 
 }
+service.findId= (id) => {
+    return Customer.find({ _id:id });
+}
 service.update = ( data, id ) => {
     return Customer.findByIdAndUpdate( id, data, { "new": true } ); // update data at degree collection
 };
