@@ -64,19 +64,19 @@ controller.checkUser = (req, res) => {
                     tmp = await serviceSale.findId(list[i].idEmp);
                     data = {
                         _id: tmp[0]._id,
-                        pmName: tmp[0].pmName,
-                        pmPhone: tmp[0].pmPhone,
-                        pmAddress: tmp[0].pmAddress,
+                        saleName: tmp[0].saleName,
+                        salePhone: tmp[0].salePhone,
+                        saleAddress: tmp[0].saleAddress,
                         username: list[i].username,
                         type: list[i].type
                     }
-                } else if (list[i].type === 'Employee') {
+                } else if (list[i].type === 'Draft'||list[i].type === 'Part1'||list[i].type === 'Part2'||list[i].type === 'Part3'||list[i].type === 'Part4') {
                     tmp = await serviceEmp.findId(list[i].idEmp);
                     data = {
                         _id: tmp[0]._id,
-                        pmName: tmp[0].pmName,
-                        pmPhone: tmp[0].pmPhone,
-                        pmAddress: tmp[0].pmAddress,
+                        employeeName: tmp[0].employeeName,
+                        employeePhone: tmp[0].employeePhone,
+                        employeeAddress: tmp[0].employeeAddress,
                         username: list[i].username,
                         type: list[i].type
                     }

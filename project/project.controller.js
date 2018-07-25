@@ -1,16 +1,27 @@
 const service = require("./project.service")// declare path service for use
+const servicePM = require("../pm/pm.service")// declare path service for use
+const serviceCustomer = require("../customer/customer.service")// declare path service for use
+const serviceSale = require("../sale/sale.service")// declare path service for use
 var groupArray = require('group-array');
 controller = {}
 var tmp = {};
 var temp = {};
 controller.index = (req, res) => { // use request value and return results to front-end
-    service.all().then((listProject) => { // call back function in service it is getting value
-        listProject.forEach(element => {
-            tmp = (groupArray(element.projectFile, 'codeProduct'));
-            element.projectFile = tmp;
-        });
+    (async () => {
+        let listProject = [];
+        let pm = [];
+        let customer = [];
+        listProject = await service.all();
+        for (let i = 0; i < listProject.length; i++) {
+            tmp = (groupArray(listProject[i].projectFile, 'codeProduct'));
+            listProject[i].projectFile = tmp;
+            pm = await servicePM.findId(listProject[i].pm);
+            listProject[i].pm = pm;
+            customer = await serviceCustomer.findId(listProject[i].customer);
+            listProject[i].customer = customer;
+        }
         res.send(listProject) // response value to front-end
-    })
+    })();
 }
 
 controller.group = (req, res) => { // use request value and return results to front-end
@@ -20,18 +31,69 @@ controller.group = (req, res) => { // use request value and return results to fr
 }
 
 controller.projectFromPM = (req, res) => { // use request value and return results to front-end
-    service.projectFromPM(req.params.id).then((list) => { // call back function in service it is getting value
-        res.send(list) // response value to front-end
-    })
+    (async () => {
+        let listProject = [];
+        let pm = [];
+        let customer = [];
+        let sale = [];
+        listProject = await service.projectFromPM(req.params.id);
+        for (let i = 0; i < listProject.length; i++) {
+            tmp = (groupArray(listProject[i].projectFile, 'codeProduct'));
+            listProject[i].projectFile = tmp;
+            pm = await servicePM.findId(listProject[i].pm);
+            listProject[i].pm = pm;
+            customer = await serviceCustomer.findId(listProject[i].customer);
+            listProject[i].customer = customer;
+            sale = await serviceSale.findId(listProject[i].sale);
+            listProject[i].sale = sale;
+        }
+        res.send(listProject) // response value to front-end
+    })();
 }
-
+controller.projectFromSale = (req, res) => { // use request value and return results to front-end
+    (async () => {
+        let listProject = [];
+        let pm = [];
+        let customer = [];
+        let sale = [];
+        listProject = await service.projectFromSale(req.params.id);
+        console.log(listProject)
+        for (let i = 0; i < listProject.length; i++) {
+            tmp = (groupArray(listProject[i].projectFile, 'codeProduct'));
+            listProject[i].projectFile = tmp;
+            pm = await servicePM.findId(listProject[i].pm);
+            listProject[i].pm = pm;
+            customer = await serviceCustomer.findId(listProject[i].customer);
+            listProject[i].customer = customer;
+            sale = await serviceSale.findId(listProject[i].sale);
+            listProject[i].sale = sale;
+        }
+        res.send(listProject) // response value to front-end
+    })();
+}
 controller.groupId = (req, res) => { // use request value and return results to front-end
-    service.groupProject(req.params.id).then((list) => { // call back function in service it is getting value
-        res.send(list) // response value to front-end
-    })
+    (async () => {
+        let listProject = [];
+        let pm = [];
+        let customer = [];
+        let sale = [];
+        listProject = await service.groupProject(req.params.id);
+        for (let i = 0; i < listProject.length; i++) {
+            tmp = (groupArray(listProject[i].projectFile, 'codeProduct'));
+            listProject[i].projectFile = tmp;
+            pm = await servicePM.findId(listProject[i].pm);
+            listProject[i].pm = pm;
+            customer = await serviceCustomer.findId(listProject[i].customer);
+            listProject[i].customer = customer;
+            sale = await serviceSale.findId(listProject[i].sale);
+            listProject[i].sale = sale;
+        }
+        res.send(listProject) // response value to front-end
+    })();
 }
 
 controller.add = (req, res) => {// use request value and return results to front-end
+    // console.log(req.body)
     service.insert(req.body);// call back function in service it is adding value
     res.send() // response to front-end
 }

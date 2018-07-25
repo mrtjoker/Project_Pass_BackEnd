@@ -12,6 +12,9 @@ service.findId = (id) => {
 service.findAssign = (id) => {
     return Assign.find({ _id:id });
 }
+service.findIdUser = (id) => {
+    return Assign.find({ assignEmpName:id });
+}
 service.insert = (value) => {
     data = new Assign({
         assignProjectCode: value.assignProjectCode,
