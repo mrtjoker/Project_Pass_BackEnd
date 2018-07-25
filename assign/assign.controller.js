@@ -154,6 +154,66 @@ controller.updateMat = (req, res) => {
         res.json(listAssign);
     })();
 };
+controller.updateReturnMat = (req, res) => {
+    // (async () => {
+    //     let matI = {};
+    //     let assignMat = [];
+    //     let mat = {};
+    //     matI = await service2.findId(req.body.assignMat.matId);
+    //     // console.log(matI[0]._id)
+    //     matL = {
+    //         _id: matI[0]._id,
+    //         materialId: matI[0].materialId,
+    //         materialName: matI[0].materialName,
+    //         materialNum: matI[0].materialNum-req.body.assignMat.matFromStore,
+    //         materialUnit: matI[0].materialUnit,
+    //         materialPrice:  parseInt(matI[0].materialPrice),
+    //         materialForm: 'old'
+    //     }
+    //     listMat = await service2.update(matL, matI[0]._id)
+    // })();
+
+    (async () => {
+        let list = {};
+        let assignMat = [];
+        let assign = {};
+        list = await service.findAssign(req.params.id);
+        for (let i = 0; i < list[0].assignMat.length; i++) {
+            if (i === req.body.count) {
+                assignMat.push({
+                    _id: req.body._id,
+                    matId: req.body.matId,
+                    matItem: req.body.matItem,
+                    matType: req.body.matType,
+                    matNum: parseInt(req.body.matNum),
+                    matRecive: req.body.matRecive,
+                    matDate: req.body.matDate,
+                    matReturn: true,
+                    matForm: 'old'
+                })
+            } else {
+                assignMat.push(list[0].assignMat[i]);
+            }
+        }
+        assign = {
+            _id: list[0]._id,
+            assignFile: list[0].assignFile,
+            assignMat: assignMat,
+            assignProjectCode: list[0].assignProjectCode,
+            assignProject_id: list[0].assignProject_id,
+            assignPMName: list[0].assignPMName,
+            assignEmpName: list[0].assignEmpName,
+            assignScopeStart: list[0].assignScopeStart,
+            assignScopeEnd: list[0].assignScopeEnd,
+            assignProgress: list[0].assignProgress,
+            assignNote: list[0].assignNote,
+            assignEmpType: list[0].assignEmpType,
+        }
+        listAssign = await service.update(assign, req.params.id)    
+        console.log(listAssign)       
+        res.json(listAssign);
+    })();
+};
 controller.updateMatassignForm = (req, res) => {
     (async () => {
         let list = {};
