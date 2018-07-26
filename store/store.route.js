@@ -4,6 +4,7 @@ const controller = require('./store.controller')
 
 router.get('/store',controller.index); // call function index in controller
 router.put( '/storeId/', controller.findMatId );
+router.put( "/storesId/:id", controller.updateMatInStore );
 router.post('/store',controller.add); // call function add in controller  
 router.put( "/store/:id", controller.update );
 router.delete( "/store/:id", controller.destroy );
