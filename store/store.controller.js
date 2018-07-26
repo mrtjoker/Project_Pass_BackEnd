@@ -1,4 +1,5 @@
 const service = require("./store.service")// declare path service for use
+const serviceAssign = require("../assign/assign.service")
 controller = {}
 
 controller.index = (req, res) => { // use request value and return results to front-end
@@ -27,20 +28,73 @@ controller.findMatId = (req, res) => { // use request value and return results t
         let list = 0;
         let matId = [];
         let num = 0;
-        for(let i = 0;i<req.body.length;i++){
-            for(let j = 0;j<req.body[i].value.assignMat.length;j++){
+        for (let i = 0; i < req.body.length; i++) {
+            for (let j = 0; j < req.body[i].value.assignMat.length; j++) {
                 list = await service.findId(req.body[i].value.assignMat[j].matId);
                 matId.push({
                     materialNum: list[0].materialNum,
                     materialForm: list[0].materialForm
                 })
-                
-                console.log(list[0])
                 num++;
             }
         }
         res.json(matId);
     })();
-  
+}
+controller.updateMatInStore = (req, res) => {
+    (async () => {
+        list1 = await service.findId(req.body.matId);
+        matL = {
+            _id: list1[0]._id,
+            materialId: list1[0].materialId,
+            materialName: list1[0].materialName,
+            materialNum: parseInt(list1[0].materialNum + req.body.matToStore),
+            materialUnit: list1[0].materialUnit,
+            materialPrice: parseInt(list1[0].materialPrice),
+            materialForm: 'old'
+        }
+        listMat = await service.update(matL, matL._id)
+    })();
+
+    (async () => {
+        let assignMat = [];
+        list2 = await serviceAssign.findAssign(req.body._id);
+        for (let i = 0; i < list2[0].assignMat.length; i++) {
+            if (i === req.body.count) {
+                assignMat.push({
+                    _id: req.body.mat_id,
+                    matId: req.body.matId,
+                    matItem: req.body.matItem,
+                    matType: req.body.matType,
+                    matNum: parseInt(req.body.matNum),
+                    matRecive: 0,
+                    matDate: req.body.matDate,
+                    matForm: 'old',
+                    matUse: 0,
+                    matReturn: false
+
+                })
+            } else {
+                assignMat.push(list2[0].assignMat[i]);
+            }
+        }
+        assign = {
+            _id: list2[0]._id,
+            assignFile: list2[0].assignFile,
+            assignMat: assignMat,
+            assignProjectCode: list2[0].assignProjectCode,
+            assignProject_id: list2[0].assignProject_id,
+            assignPMName: list2[0].assignPMName,
+            assignEmpName: list2[0].assignEmpName,
+            assignScopeStart: list2[0].assignScopeStart,
+            assignScopeEnd: list2[0].assignScopeEnd,
+            assignProgress: list2[0].assignProgress,
+            assignNote: list2[0].assignNote,
+            assignEmpType: list2[0].assignEmpType,
+        }
+        listAssign = await serviceAssign.update(assign, req.body._id)
+        res.json(listAssign);
+    })();
+
 }
 module.exports = controller // export module for use controller in another files
