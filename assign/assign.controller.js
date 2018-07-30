@@ -153,6 +153,7 @@ controller.updateMat = (req, res) => {
 
 controller.updateMatUse = (req, res) => {
     (async () => {
+        console.log(req.body.assignMat)
         let list = {};
         let assignMat = [];
         let assign = {};
@@ -160,6 +161,7 @@ controller.updateMatUse = (req, res) => {
         for (let i = 0; i < list[0].assignMat.length; i++) {
             if (i === req.body.assignMat.count) {
                 assignMat.push({
+                    _id: req.body.assignMat._id,
                     matId: req.body.assignMat.matId,
                     matItem: req.body.assignMat.matItem,
                     matType: req.body.assignMat.matType,
@@ -196,6 +198,7 @@ controller.updateMatUse = (req, res) => {
 
 controller.updateReturnMat = (req, res) => {
     (async () => {
+        console.log(req.body)
         let list = {};
         let assignMat = [];
         let assign = {};
@@ -203,6 +206,7 @@ controller.updateReturnMat = (req, res) => {
         for (let i = 0; i < list[0].assignMat.length; i++) {
             if (i === req.body.count) {
                 assignMat.push({
+                    matId: req.body.matId,
                     matItem: req.body.matItem,
                     matType: req.body.matType,
                     matNum: parseInt(req.body.matNum),
