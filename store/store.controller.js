@@ -34,7 +34,7 @@ controller.findMatId = (req, res) => { // use request value and return results t
             // console.log(req.body[i].value.assignMat.length)
             for (let j = 0; j < req.body[i].value.assignMat.length; j++) {
                 list = await service.findId(req.body[i].value.assignMat[j].matId);
-                // console.log(list)
+                console.log(list)
                 matId.push({
                     materialNum: list[0].materialNum,
                     materialForm: list[0].materialForm
