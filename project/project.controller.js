@@ -93,15 +93,22 @@ controller.groupId = (req, res) => { // use request value and return results to 
 }
 
 controller.add = (req, res) => {// use request value and return results to front-end
-    // console.log(req.body)
     service.insert(req.body);// call back function in service it is adding value
     res.send() // response to front-end
 }
 
-controller.update = (req, res) => {
-    // service.update( req.body, req.params.id ).then( ( data ) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
-    //     res.json( data ); // response data with JSON
-    // } );
+controller.updateProgress = (req, res) => {
+    (async () => {
+        let listProject = [];
+        let progress = [];
+        let customer = [];
+        let sale = [];
+        listProject = await service.groupProject(req.params.id);
+        listProject[0].projectProgress = req.body[0].value;
+        service.update(listProject[0], req.params.id).then((data) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
+            res.json(data); // response data with JSON
+        }); // response value to front-end
+    })();
 };
 
 controller.destroy = (req, res) => {

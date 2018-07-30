@@ -8,7 +8,7 @@ router.get( '/project/:id', controller.groupId );
 router.get( '/projectFromPM/:id', controller.projectFromPM );
 router.get( '/projectFromSale/:id', controller.projectFromSale );
 router.post('/project',controller.add); // call function add in controller  
-router.put( "/project/:id", controller.update );
+router.put( "/project/:id", controller.updateProgress );
 router.delete( "/project/:id", controller.destroy );
 
 module.exports = router // export module for use router in another files
