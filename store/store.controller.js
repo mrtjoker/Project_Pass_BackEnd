@@ -24,13 +24,17 @@ controller.destroy = (req, res) => {
     });
 };
 controller.findMatId = (req, res) => { // use request value and return results to front-end
+    
     (async () => {
+        // console.log(req.body)
         let list = 0;
         let matId = [];
         let num = 0;
         for (let i = 0; i < req.body.length; i++) {
+            // console.log(req.body[i].value.assignMat.length)
             for (let j = 0; j < req.body[i].value.assignMat.length; j++) {
                 list = await service.findId(req.body[i].value.assignMat[j].matId);
+                // console.log(list)
                 matId.push({
                     materialNum: list[0].materialNum,
                     materialForm: list[0].materialForm
@@ -57,6 +61,9 @@ controller.updateMatInStore = (req, res) => {
     })();
 
     (async () => {
+        // console.log(req.body.mat_id)
+        // console.log(req.body.matId)
+        // console.log(req.body)
         let assignMat = [];
         list2 = await serviceAssign.findAssign(req.body._id);
         for (let i = 0; i < list2[0].assignMat.length; i++) {

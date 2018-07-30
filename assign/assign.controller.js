@@ -36,7 +36,12 @@ controller.projectProgress = (req, res) => { // use request value and return res
     })
 }
 controller.findAssignId = (req, res) => { // use request value and return results to front-end
+    // console.log(req.body)
+    // console.log(req.params.id)
+    
+
     service.findId(req.params.id).then((list) => { // call back function in service it is getting value
+        // console.log(list)
         let check = [5];
         check[0] = { ck: false, value: [] }
         check[1] = { ck: false, value: [] }
@@ -66,16 +71,22 @@ controller.findAssignId = (req, res) => { // use request value and return result
 }
 
 controller.add = (req, res) => {// use request value and return results to front-end
-    console.log(req.body)
+    // console.log(req.body)
     service.insert(req.body);// call back function in service it is adding value
     res.send() // response to front-end
 }
 controller.update = (req, res) => {
+    // console.log(req.body.assignProjectCode)
+    let re = 0.0;
     for (let i = 0; i < req.body.assignFile.length; i++) {
         req.body.assignFile[i].fileProgress = (req.body.assignFile[i].fileRecive / req.body.assignFile[i].fileNum) * 100
+        re += req.body.assignFile[i].fileProgress / req.body.assignFile.length 
     }
+    req.body.assignProgress = re;
+    re = 0.0
 
     service.update(req.body, req.params.id).then((data) => { // req.body is degree data at user edit. & req.params.id is ID in rows at user edit.
+        // console.log(data)
         res.json(data); // response data with JSON
     });
 };
@@ -105,9 +116,8 @@ controller.updateMat = (req, res) => {
         list = await service.findAssign(req.params.id);
         for (let i = 0; i < list[0].assignMat.length; i++) {
             if (i === req.body.assignMat.count) {
-                console.log(req.body.assignMat.matReturn)
-                console.log(req.body.assignMat.matUse)
                 assignMat.push({
+                    _id: req.body.assignMat._id,
                     matId: req.body.assignMat.matId,
                     matItem: req.body.assignMat.matItem,
                     matType: req.body.assignMat.matType,
@@ -180,7 +190,6 @@ controller.updateMatUse = (req, res) => {
             assignEmpType: list[0].assignEmpType,
         }
         listAssign = await service.update(assign, req.params.id)
-        console.log(listAssign)
         res.json(listAssign);
     })();
 };
@@ -222,7 +231,6 @@ controller.updateReturnMat = (req, res) => {
             assignEmpType: list[0].assignEmpType,
         }
         listAssign = await service.update(assign, req.params.id)
-        console.log(listAssign)
         res.json(listAssign);
     })();
 };
