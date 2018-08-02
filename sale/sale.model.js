@@ -3,8 +3,11 @@ var Schema = mongoose.Schema;
 
 var SaleSchema = new Schema({ // declare structor model in database   
     saleName: String,
-    salePhone: Number,
+    salePhone: String,
     saleAddress: String,
+    saleSex: String,
+    saleAge: Number,
+    saleEmail: String,
  });
 
 var Sale = mongoose.model("sale", SaleSchema); // create model in sale collection

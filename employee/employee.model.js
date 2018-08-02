@@ -3,8 +3,11 @@ var Schema = mongoose.Schema;
 
 var EmployeeSchema = new Schema({ // declare structor model in database   
     employeeName: String,
-    employeePhone: Number,
+    employeePhone: String,
     employeeAddress: String,
+    employeeSex: String,
+    employeeAge: Number,
+    employeeEmail: String,
     employeeType: String
  });
 
