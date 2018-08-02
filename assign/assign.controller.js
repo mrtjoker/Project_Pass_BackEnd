@@ -93,6 +93,7 @@ controller.update = (req, res) => {
 
 controller.updateMat = (req, res) => {
     (async () => {
+        console.log
         let matI = {};
         let assignMat = [];
         let mat = {};
@@ -153,7 +154,6 @@ controller.updateMat = (req, res) => {
 
 controller.updateMatUse = (req, res) => {
     (async () => {
-        console.log(req.body.assignMat)
         let list = {};
         let assignMat = [];
         let assign = {};
@@ -198,7 +198,6 @@ controller.updateMatUse = (req, res) => {
 
 controller.updateReturnMat = (req, res) => {
     (async () => {
-        console.log(req.body)
         let list = {};
         let assignMat = [];
         let assign = {};
