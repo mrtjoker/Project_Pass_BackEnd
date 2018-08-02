@@ -7,6 +7,7 @@ router.get('/projectGroupProduct',controller.group); // call function index in c
 router.get( '/project/:id', controller.groupId );
 router.get( '/projectFromPM/:id', controller.projectFromPM );
 router.get( '/projectFromSale/:id', controller.projectFromSale );
+router.get( '/projectFromCus/:id', controller.projectFromCus );
 router.post('/project',controller.add); // call function add in controller  
 router.put( "/project/:id", controller.updateProgress );
 router.delete( "/project/:id", controller.destroy );
