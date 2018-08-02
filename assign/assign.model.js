@@ -10,6 +10,7 @@ var StoreSchema = new Schema({ // declare structor model in database
     assignScopeStart: Date,
     assignScopeEnd: Date,
     assignMat: [],
+    assignFileRecive: [],
     assignProgress: Number,
     assignNote: String, 
     assignEmpType: String,
