@@ -2,6 +2,7 @@ const service = require("./project.service")// declare path service for use
 const servicePM = require("../pm/pm.service")// declare path service for use
 const serviceCustomer = require("../customer/customer.service")// declare path service for use
 const serviceSale = require("../sale/sale.service")// declare path service for use
+const serviceAssign = require("../assign/assign.service")
 var groupArray = require('group-array');
 controller = {}
 var tmp = {};
@@ -57,7 +58,6 @@ controller.projectFromSale = (req, res) => { // use request value and return res
         let customer = [];
         let sale = [];
         listProject = await service.projectFromSale(req.params.id);
-        console.log(listProject)
         for (let i = 0; i < listProject.length; i++) {
             tmp = (groupArray(listProject[i].projectFile, 'codeProduct'));
             listProject[i].projectFile = tmp;
@@ -68,6 +68,26 @@ controller.projectFromSale = (req, res) => { // use request value and return res
             sale = await serviceSale.findId(listProject[i].sale);
             listProject[i].sale = sale;
         }
+        res.send(listProject) // response value to front-end
+    })();
+}
+controller.projectFromCus = (req, res) => { // use request value and return results to front-end
+    (async () => {
+        let listProject = [];
+        let pm = [];
+        let customer = [];
+        let sale = [];
+        listProject = await service.projectFromCus(req.params.id);
+        // for (let i = 0; i < listProject.length; i++) {
+        //     tmp = (groupArray(listProject[i].projectFile, 'codeProduct'));
+        //     listProject[i].projectFile = tmp;
+        //     pm = await servicePM.findId(listProject[i].pm);
+        //     listProject[i].pm = pm;
+        //     customer = await serviceCustomer.findId(listProject[i].customer);
+        //     listProject[i].customer = customer;
+        //     sale = await serviceSale.findId(listProject[i].sale);
+        //     listProject[i].sale = sale;
+        // }
         res.send(listProject) // response value to front-end
     })();
 }
@@ -93,7 +113,36 @@ controller.groupId = (req, res) => { // use request value and return results to 
 }
 
 controller.add = (req, res) => {// use request value and return results to front-end
-    service.insert(req.body);// call back function in service it is adding value
+    let value = {
+        projectCode: req.body.projectCode,
+        projectFile: req.body.projectFile,
+        projectType: req.body.projectType,
+        scopeStart: req.body.scopeStart,
+        scopeEnd: req.body.scopeEnd,
+        customer: req.body.customer,
+        pm: req.body.pm,
+        sale: req.body.sale
+      };
+    serviceAssign.findId(req.body.oldProjectCode).then((list) => { // call back function in service it is getting value
+        let assign = {};
+        list.forEach(element => {
+            assign = {
+                assignProjectCode: req.body.projectCode,
+                assignProject_id: element.assignProject_id,
+                assignPMName: element.assignPMName,
+                assignEmpName: element.assignEmpName,
+                assignFile: element.assignFile,
+                assignScopeStart: element.assignScopeStart,
+                assignScopeEnd: element.assignScopeEnd,
+                assignMat: element.assignMat,
+                assignProgress: element.assignProgress,
+                assignNote: element.assignNote,
+                assignEmpType: element.assignEmpType
+            };
+            serviceAssign.insert(assign);
+        });
+    })
+    service.insert(value);// call back function in service it is adding value
     res.send() // response to front-end
 }
 

@@ -7,6 +7,16 @@ controller.index = (req, res) => { // use request value and return results to fr
     })
 }
 
+controller.findCus = (req, res) => { // use request value and return results to front-end
+    service.all().then(( list ) => { // call back function in service it is getting value
+        let tmp = {};
+        list.forEach(element => {
+            tmp = element;
+        });
+        res.send(tmp) // response value to front-end
+    })
+}
+
 controller.add = (req, res) => {// use request value and return results to front-end
     service.insert(req.body);// call back function in service it is adding value
     res.send() // response to front-end

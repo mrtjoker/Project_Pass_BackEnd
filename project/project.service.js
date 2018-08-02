@@ -20,6 +20,10 @@ service.projectFromPM = (id) => {
 service.projectFromSale = (id) => {
     return Project.find({ sale: id });
 }
+service.projectFromCus = (id) => {
+    return Project.find({ customer: id });
+}
+
 
 service.insert = (value) => {
     data = new Project({
