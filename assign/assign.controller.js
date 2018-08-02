@@ -38,7 +38,7 @@ controller.projectProgress = (req, res) => { // use request value and return res
 controller.findAssignId = (req, res) => { // use request value and return results to front-end
     // console.log(req.body)
     // console.log(req.params.id)
-    
+
 
     service.findId(req.params.id).then((list) => { // call back function in service it is getting value
         // console.log(list)
@@ -80,7 +80,7 @@ controller.update = (req, res) => {
     let re = 0.0;
     for (let i = 0; i < req.body.assignFile.length; i++) {
         req.body.assignFile[i].fileProgress = (req.body.assignFile[i].fileRecive / req.body.assignFile[i].fileNum) * 100
-        re += req.body.assignFile[i].fileProgress / req.body.assignFile.length 
+        re += req.body.assignFile[i].fileProgress / req.body.assignFile.length
     }
     req.body.assignProgress = re;
     re = 0.0
@@ -170,7 +170,7 @@ controller.updateMatUse = (req, res) => {
                     matDate: req.body.assignMat.matDate,
                     matReturn: req.body.assignMat.matReturn,
                     matForm: req.body.assignMat.matForm,
-                    matUse: parseInt(req.body.assignMat.matUse+req.body.assignMat.matUseInOneDay),
+                    matUse: parseInt(req.body.assignMat.matUse + req.body.assignMat.matUseInOneDay),
                     matReturn: req.body.assignMat.matReturn
                 })
             } else {
@@ -281,6 +281,11 @@ controller.updateMatassignForm = (req, res) => {
         listAssign = await service.update(assign, req.params.id)
         res.json(listAssign);
     })();
+};
+controller.getWork = (req, res) => {
+    service.findIdUser(req.params.id).then((data) => {
+        res.send(data)
+    });
 };
 
 controller.destroy = (req, res) => {

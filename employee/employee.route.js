@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require('./employee.controller')
 
 router.get('/employee',controller.index); // call function index in controller
+router.get( '/employeePart/:id', controller.findEmployee );
 router.post('/employee',controller.add); // call function add in controller  
 router.put( "/employee/:id", controller.update );
 router.delete( "/employee/:id", controller.destroy );

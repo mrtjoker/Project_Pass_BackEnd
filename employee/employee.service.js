@@ -17,6 +17,9 @@ service.insert = (value) => {
 service.findId= (id) => {
     return Employee.find({ _id:id });
 }
+service.findEmpByPart= (id) => {
+    return Employee.find({ employeeType:id });
+}
 service.update = ( data, id ) => {
     return Employee.findByIdAndUpdate( id, data, { "new": true } ); // update data at degree collection
 };
