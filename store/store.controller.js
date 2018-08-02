@@ -32,6 +32,7 @@ controller.findMatId = (req, res) => { // use request value and return results t
         let num = 0;
         for (let i = 0; i < req.body.length; i++) {
             // console.log(req.body[i].value.assignMat.length)
+            if(req.body[i].value.assignMat !== undefined){
             for (let j = 0; j < req.body[i].value.assignMat.length; j++) {
                 list = await service.findId(req.body[i].value.assignMat[j].matId);
                 console.log(list)
@@ -41,6 +42,10 @@ controller.findMatId = (req, res) => { // use request value and return results t
                 })
                 num++;
             }
+        }
+        else {
+            
+        }
         }
         res.json(matId);
     })();
